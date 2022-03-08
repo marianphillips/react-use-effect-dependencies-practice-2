@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import Pilot from './Pilot'
 
 function StarshipsListItem(props) {
   const { starship } = props;
 
-  const [firstPilot, setFirstPilot] = useState('')
+  const [pilots, setPilots] = useState("")
 
-  console.log({ starship });
+  useEffect(() => {
+    if(starship.pilots === []) return
+    setPilots(starship.pilots)
+    } , [starship])
 
-  return <li>{starship.name} - First Pilot {firstPilot}</li>;
+
+  return <li>{starship.name} - Pilots: {pilots === "" ? "None" : pilots.map(pilot => <Pilot pilot={pilot}/>)}</li>;
 }
 
 export default StarshipsListItem;
